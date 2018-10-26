@@ -4,14 +4,11 @@
  */
 import React from 'react'
 import ReactDom from 'react-dom'
-import First from './components/first'
-import GoodMorning from './components/goodmorning'
-import Multiples from './components/multiples'
+import Salutations from './components/salutation'
 
 ReactDom.render(
     <div>
-        <Multiples.GoodAfternoon name='Manoel'/>
-        <Multiples.GoodNight name='Manoel'/>
+        <Salutations type='Good Morning' name='Manoel'/>
     </div> , document.getElementById('root')
 )
 
