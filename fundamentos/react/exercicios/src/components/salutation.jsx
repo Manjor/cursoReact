@@ -8,6 +8,7 @@
  export default class Saudacao extends Component{
     
 
+    
     state = {
         type: this.props.type,
         name: this.props.name
@@ -15,7 +16,7 @@
 
     setType(e){
 
-        let i = 1
+        //let i = 1
         //setInterval(()=> {
         //alter state of atributte
         //1.*
@@ -25,6 +26,13 @@
         console.log(e.target.value)
         this.setState({ type: e.target.value})
         
+    }
+    setName(e){
+        this.setState({name: e.target.value})
+    }
+    constructor(props){
+        super(props)
+        this.setType = this.setType.bind(this)
     }
 
     //function that render the component
@@ -36,8 +44,8 @@
             <div>
                 <h1>{type} {name}</h1>
                 <hr />
-                <input type='text' placeholder='Type...' value={type} onChange={e => this.setType(e)} />
-                <input type='text' placeholder='Name...' value={name} onChange={e => this.setType(e)}/>
+                <input type='text' placeholder='Type...' value={type} onChange={this.setType} />
+                <input type='text' placeholder='Name...' value={name} onChange={e => this.setName(e)}/>
             </div>
         )   
     }
