@@ -4,9 +4,13 @@
  */
 import React from 'react'
 import ReactDom from 'react-dom'
+import First from './components/first'
 
-//ReactDom serve para fazer alterações na DOM
-//Renderiza um h1 na DOM cujo o id é root
-//Sintaxe do React chamada JSX
-const elemento = <h1>Hello React</h1>
-ReactDom.render(elemento, document.getElementById('root'))
+//ReactDom to make DOM changes
+//Render a h1 in DOM whose  id is = root
+//Syntax of React call JSX
+//const elemento = <h1>Hello React</h1>
+//ReactDom.render(elemento, document.getElementById('root'))
+
+ReactDom.render(<First />, document.getElementById('root'))
+
