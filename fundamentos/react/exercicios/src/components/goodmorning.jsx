@@ -11,7 +11,7 @@ export default props =>
     //or use React.Fragment
     <Fragment>
         <h2>Good Morning {props.name}!</h2>
-        <h3>Até Breve</h3>
+        <h3>You Okay?</h3>
    </Fragment>
 
 //or use array of elements with keys
