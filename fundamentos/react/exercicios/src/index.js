@@ -5,10 +5,14 @@
 import React from 'react'
 import ReactDom from 'react-dom'
 import Salutations from './components/salutation'
+import Dad from './components/dad'
 
 ReactDom.render(
     <div>
-        <Salutations type='Good Morning' name='Manoel'/>
+        <Dad name='Manoel' lastname='Tavares'>
+            {/* how to pass the child components */}
+        </Dad>
+        
     </div> , document.getElementById('root')
 )
 
