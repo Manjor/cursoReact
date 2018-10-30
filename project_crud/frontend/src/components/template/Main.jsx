@@ -5,7 +5,7 @@ import Footer from './Footer'
 
 export default props =>
     <React.Fragment>
-        <Header/>
+        <Header {...props}/>
         <main className='content'>
             Content Main
         </main>
