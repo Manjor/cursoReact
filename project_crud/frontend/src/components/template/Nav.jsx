@@ -8,7 +8,7 @@ export default props =>
                 <i className='fa fa-home'></i>Home
             </a>
             <a href='#/users'>
-                <i className='fa fa-users'>Users</i>
+                <i className='fa fa-users'></i>Users
             </a>
         </nav>
     </aside>
