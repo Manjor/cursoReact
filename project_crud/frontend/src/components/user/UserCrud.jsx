@@ -10,7 +10,7 @@ const headerProps = {
     subtitle: 'Register of Users: Include, List, Alter and Delete'
 }
 //Define url base of the  data
-const baseUrl = 'http://locahost:3001/users'
+const baseUrl = 'http://localhost:3001/users'
 //Define component initial State
 const initialState = {
     user: {name: '', email: ''},
@@ -31,6 +31,7 @@ export default class UserCrud extends Component{
     //Include - use PUT
     //Update - use POST
     save(){
+        
         const user = this.state.user
         //if user id == true call put else post
         const method = user.id ? 'put' : 'post'
@@ -38,12 +39,28 @@ export default class UserCrud extends Component{
         //else return http://localhost/users
         const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
         //
+        console.log(url,method,user);
         axios[method](url,user).then(resp =>{
-            //resp.data is user of the return of axios[method]
-            // include ou alter user
             const list = this.getUpdatedList(resp.data)
-            this.setState({user : initialState.user, list})
+            this.setState({ list, user: initialState.user })
+        }, error =>{
+            console.log(error)
         })
+        {/*if(user.id){
+            axios.put(url,user).then(resp =>{
+                const list = this.getUpdatedList(resp.data)
+                this.setState({ list, user: initialState.user })
+            }, error=>{
+                console.log(error)
+            })
+        }else{
+            axios.post(url,user).then(resp =>{
+                const list = this.getUpdatedList(resp.data)
+                this.setState({ list, user: initialState.user })
+            }, error=>{
+                console.log(error);
+            })
+        }*/}
     }
 
     getUpdatedList(user){
@@ -54,10 +71,67 @@ export default class UserCrud extends Component{
         return list
     }
 
+    //Update the fields of form
+    updateFild(event){
+        //Clone object user of state
+        const user = {...this.state.user}
+        //search input call name
+        user[event.target.name] = event.target.value
+        this.setState({ user })
+
+    }
+
+    //Render form
+    renderForm(){
+        return(
+            <div className='form'>
+                <div className='row'>
+                    <div className='col-12 col-md-6'>
+                        <div className='form-group'>
+                            <label>Name</label>
+                            <input type="text" className='form-control'
+                             name='name'
+                             value={this.state.user.name}
+                             onChange={e =>this.updateFild(e)}
+                             placeholder='Enter your name...'
+                            />
+                        </div>
+                    </div>
+                    <div className='col-12 col-md-6'>
+                        <div className='form-group'>
+                            <label>Email</label>
+                            <input type="text" className='form-control'
+                                name='email'
+                                value={this.state.user.email}
+                                onChange={e => this.updateFild(e)}
+                                placeholder='Enter you email'
+                            />
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div className='row'>
+                    <div className='col-12 d-flex justify-content-end'>
+                        <button className='btn btn-primary'
+                            onClick={e => this.save(e)}
+                        >
+                            Save
+                        </button>
+                        <button className='btn btn-secondary ml-2'
+                            onClick={e => this.clear(e)}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     render(){
         return (
             <Main {...headerProps}>
-                Register Users
+                {this.renderForm()}
             </Main>
         )
     }
