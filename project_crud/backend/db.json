@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Manoel Tavares",
-      "email": "manoeltavares.jr@gmail.com"
+      "email": "example@example.com"
     },
     {
       "id": 2,
@@ -14,11 +14,6 @@
       "name": "Junior",
       "email": "junior@example.com",
       "id": 6
-    },
-    {
-      "name": "Teste 2",
-      "email": "teste2@example.com",
-      "id": 7
     }
   ]
 }

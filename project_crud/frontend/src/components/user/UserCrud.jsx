@@ -22,6 +22,11 @@ export default class UserCrud extends Component{
     //Initialize component state with const initialstate
     state = {...initialState}
 
+    componentWillMount(){
+        axios(baseUrl).then(resp => {
+            this.setState({ list: resp.data})
+        })
+    }
     //Clear a form
     clear(){
         this.setState({user : initialState.user})
@@ -63,11 +68,12 @@ export default class UserCrud extends Component{
         }*/}
     }
 
-    getUpdatedList(user){
+    getUpdatedList(user, add = true){
         //generate a new list of this.state.list
         const list = this.state.list.filter(u => u.id !== user.id)
         //Realoc elemet to first position array
-        list.unshift(user)
+        if(add) list.unshift(user)
+        //list.unshift(user)
         return list
     }
 
@@ -128,10 +134,61 @@ export default class UserCrud extends Component{
         )
     }
 
+    load(user){
+        this.setState({ user })
+    }
+
+    remove(user){
+        axios.delete(`${baseUrl}/${user.id}`).then(resp =>{
+            const list = this.getUpdatedList(user, false)
+            this.setState({ list })
+        })
+    }
+
+    renderTable(){
+        return(
+            <table className="table mt-4">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Mail</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
+            </table>
+        )
+    }
+
+    renderRows(){
+        return this.state.list.map( user =>{
+            return(
+                <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>
+                        <button className="btn btn-warning m-1"
+                            onClick={() => this.load(user)}>
+                            <i className='fa fa-pencil'></i>
+                        </button>
+                        <button className="btn btn-danger m-1"
+                            onClick={() => this.remove(user)}>
+                            <i className='fa fa-trash'></i>
+                        </button>
+                    </td>
+                </tr>
+            )
+        })
+    }
     render(){
         return (
             <Main {...headerProps}>
                 {this.renderForm()}
+                {this.renderTable()}
             </Main>
         )
     }
